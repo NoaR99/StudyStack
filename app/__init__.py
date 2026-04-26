@@ -12,7 +12,7 @@ login_manager.login_view = 'auth.login'
 migrate = Migrate()
 
 def create_app(config_class=Config):
-    app = Flask(__name__, static_url_path='/static', static_folder='static')
+    app = Flask(__name__)
     app.config.from_object(config_class)
 
     db.init_app(app)
