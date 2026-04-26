@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
@@ -12,10 +11,9 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 migrate = Migrate()
 
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 def create_app(config_class=Config):
-    app = Flask(__name__, static_folder=os.path.join(basedir, 'static'), static_url_path='/static')
+    app = Flask(__name__)
     app.config.from_object(config_class)
 
     db.init_app(app)
