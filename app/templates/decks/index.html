@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.title.label }}
+        {{ form.title(size=40) }}
+    </form>
+
+    {% if deck.tags %}
+        <p class="deck-tags">
+            {% for tag in deck.tags %}
+                <span class="badge bg-secondary">{{ tag.name }}</span>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    <div class="card-question">{{ card.question }}</div>
+    <div class="card-answer">{{ card.answer }}</div>
+
     <h2>My Decks</h2>
     <a href="{{ url_for('decks.deck_create') }}" class="btn btn-success mb-3">Create New Deck</a>
     <div class="row">

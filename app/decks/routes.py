@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, abort
 from flask_login import login_required, current_user
 from app.decks.forms import DeckForm, CardForm
-from app.models import Deck, Card
+from app.models import Deck, Card, Tag
 from app import db
 
 decks_bp = Blueprint('decks', __name__)
@@ -24,6 +24,7 @@ def deck_create():
             is_public=form.is_public.data,
             owner=current_user
         )
+        deck.tags = process_tags(form.tags.data)
         db.session.add(deck)
         db.session.commit()
         flash('Deck created successfully!', 'success')
@@ -55,3 +56,26 @@ def card_create(deck_id):
         flash('Card added!', 'success')
         return redirect(url_for('decks.deck_detail', deck_id=deck.id))
     return render_template('decks/new_card.html', form=form, deck=deck)
+
+def process_tags(tag_string):
+    """
+    turn a comma-separated tag string into a list of Tag objects.
+    existing tags are reused; new ones are created
+
+    'Python, flask, AI -> [<Tag python>, <Tag flask>, <Tag ai>]'
+    """
+    if not tag_string:
+        return []
+
+    tag_objects = []
+    for raw in tag_string.split(','):
+        name = raw.strip().lower()
+        if not name:
+            continue
+        tag = Tag.query.filter_by(name=name).first()
+        if tag in None:
+            tag = Tag(name=name)
+            db.session.add(tag)
+        tag_objects.append(tag)
+
+    return tag_objects

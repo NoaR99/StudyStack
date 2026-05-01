@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% from 'bootstrap5/form.html' import render_form %}
 
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }}
+    {{ form.title(size=40) }}
+</form>
+
+<div class="card-question">{{ card.question }}</div>
+<div class="card-answer">{{ card.answer }}</div>
+
+{% if deck.tags %}
+    <p class="deck-tags">
+        {% for tag in deck.tags %}
+            <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
 {% block content %}
 <div class="container mt-4">
     <h1>Add Card to "{{ deck.title }}"</h1>

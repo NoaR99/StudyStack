@@ -1,6 +1,23 @@
 {% from 'bootstrap5/nav.html' import render_nav_item, render_messages %}
 {% from 'bootstrap5/utils.html' import render_messages %}
 
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.title.label }}
+    {{ form.title(size=40) }}
+</form>
+
+<div class="card-question">{{ card.question }}</div>
+<div class="card-answer">{{ card.answer }}</div>
+
+{% if deck.tags %}
+    <p class="deck-tags">
+        {% for tag in deck.tags %}
+            <span class="badge bg-secondary">{{ tag.name }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
