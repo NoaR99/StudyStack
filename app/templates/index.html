@@ -1,22 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.title.label }}
-    {{ form.title(size=40) }}
-</form>
-
-<div class="card-question">{{ card.question }}</div>
-<div class="card-answer">{{ card.answer }}</div>
-
-{% if deck.tags %}
-    <p class="deck-tags">
-        {% for tag in deck.tags %}
-            <span class="badge bg-secondary">{{ tag.name }}</span>
-        {% endfor %}
-    </p>
-{% endif %}
 
     <div class="rounded-3 p-5 bg-light">
         <h1>Welcome to StudyStack</h1>

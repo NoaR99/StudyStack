@@ -3,11 +3,6 @@
     <h2>{{ deck.title }}</h2>
     <p>{{ deck.description }}</p>
 
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.title.label }}
-        {{ form.title(size=40) }}
-    </form>
 
     {% if deck.tags %}
         <p class="deck-tags">
@@ -17,8 +12,6 @@
         </p>
     {% endif %}
 
-    <div class="card-question">{{ card.question }}</div>
-    <div class="card-answer">{{ card.answer }}</div>
 
     <div class="deck-actions d-flex flex-wrap align-items-center gap-2 mb-4">
         <a href="{{ url_for('decks.card_create', deck_id=deck.id) }}" class="btn btn-info">Add Card</a>
