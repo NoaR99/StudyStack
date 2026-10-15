@@ -38,6 +38,13 @@ def deck_detail(deck_id):
         abort(403)
     return render_template('decks/detail.html', deck=deck)
 
+@decks_bp.route('/decks/<int:deck_id>/matching_game')
+def matching_game(deck_id):
+    deck = db.get_or_404(Deck, deck_id)
+    if not deck.is_public and (not current_user.is_authenticated or deck.owner !=current_user):
+        abort(403)
+    return render_template('decks/matching.html', deck=deck)
+
 @decks_bp.route('/decks/<int:deck_id>/cards/new', methods=['GET', 'POST'])
 @login_required
 def card_create(deck_id):

@@ -1,0 +1,36 @@
+{% extends base.html %}
+{% block content %}
+    {% if deck.tags %}
+        <p class="deck-tags">
+            {% for tag in deck.tags %}
+                <span class="badge bg-secondary">{{ tag.name }}</span>
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Matching Mode: {{ deck.title }}</h2>
+        <a href="{{ url_for('decks.deck_detail', deck_id=deck.id) }}" class="btn btn-outline-secondary">Back to Deck</a>
+    </div>
+
+    <div id="matching-board" class="d-flex flex-wrap gap-3 justify-content-center">
+        </div>
+
+    <script>
+        const rawCards = [
+            {% for card in deck.cards %}
+            {
+                id: "{{ card.id }}",
+                question: "{{ card.question | escape }}",
+                answer: "{{ card.answer | escape }}"
+            },
+            {% endfor %}
+        ];
+        console.log(rawCards);
+
+        const gameCards = {};
+        for (const card of rawCards) {
+            pair = [rawCards.question, rawCards.answer];
+            gameCards.id = pair;
+        }
+    </script>

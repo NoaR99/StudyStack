@@ -20,7 +20,15 @@
         <!-- Mode toggle buttons -->
         <div class="btn-group deck-mode-toggle ms-md-auto" role="group">
             <button class="btn btn-primary active" id="btn-browse" onclick="switchMode('browse')">Browse All</button>
-            <button class="btn btn-outline-primary" id="btn-practice" onclick="switchMode('practice')">Practice</button>
+            <div class="btn-group" role="group">
+                <button id="btn-practice" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="drowpdown" aria-expanded="false">
+                    Practice
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" onclick="switchMode('practice')">Standard Mode</button></li>
+                    <li><a class="dropdown-item" href="{{ url_for('decks.matching_game', deck_id=deck.id) }}">Matching Mode</a></li>
+                </ul>
+            </div>
         </div>
         {% endif %}
     </div>
